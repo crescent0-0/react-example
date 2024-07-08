@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <div id="root1"></div>
+        <div id="root2"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        // 방식 1) render를 직접 다시 해준다. (추천 방법X)
+
+        const root1 = document.getElementById("root1")
+        let counter = 0;
+
+        function countUp() {
+            counter = counter + 1;
+            render()   // counter 증가 후, 리랜더링 (없으면, counter는 증가해도 UI는 변화하지 않음)
+        }
+
+        function render(){
+            ReactDOM.render(<Container />, root1);    // 현재 값이 변경되는 counter의 값만 업데이트 (기존방식은 해당 태그 전체가 업데이트됨)
+        }
+
+        const Container = () => (
+            <div>
+                <h3>Total Clicks: {counter}</h3>
+                <button onClick={countUp}>Click me!</button>   
+            </div>);
+
+        render();    // 최초 페이지 로드 (랜더링)
+
+
+
+        // 방식 2) useState를 사용한다. (추천 방법)
+        const root2 = document.getElementById("root2")
+
+        function App() {
+            const [counter, setCounter] = React.useState(0);
+            const onClick = () => {
+                setCounter(counter + 1);   // state에 있는 함수, 값을 변경 + 리랜더링
+            }
+            
+            return (  // 사용자가 보는 컴포넌트
+                <div>
+                    <h3>Total Clicks: {counter}</h3>
+                    <button onClick={onClick}>Click me!</button>   
+                </div>
+            );
+        }
+            
+        ReactDOM.render(<App />, root2);
+    </script>
+</html>
