@@ -38,7 +38,8 @@
         function App() {
             const [counter, setCounter] = React.useState(0);
             const onClick = () => {
-                setCounter(counter + 1);   // state에서 제공하는 함수, 값을 변경 + 리랜더링
+                // setCounter(counter + 1);   // state에서 제공하는 함수, 값을 변경 + 리랜더링
+                setCounter((current) => current +1)  // 동일한 역할을 하지만, 해당 코드가 현재값을 확실하게 보장해줘서 안전함.
             }
             
             return (  // 사용자가 보는 컴포넌트

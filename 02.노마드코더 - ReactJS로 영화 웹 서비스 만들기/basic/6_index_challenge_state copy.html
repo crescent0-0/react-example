@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+
+        function MinutesToHours() {
+            const [amount, setAmount] = React.useState(0)
+            const [inverted, setInverted] = React.useState(false)
+            
+            const onChange = (event) => {   // Form을 다룰때는 JS를 활용한다. event를 받아서, 그 안에 있는 value를 가져온다.
+                setAmount(event.target.value);
+            }
+
+            const reset = () => setAmount(0);
+
+            const onInvert= () => {
+                reset();
+                setInverted((current) => !current)
+            };
+
+            return (  // 사용자가 보는 컴포넌트
+                <div>
+                    <h4>Minutes & Hours</h4>
+                    <div>
+                        <label htmlFor="minutes" >Minutes</label>
+                        <input id="minutes" placeholder="Minutes" type="number" value={inverted? amount*60 : amount} onChange={onChange} disabled={inverted}/>
+                    </div>
+                    <div>
+                        <label htmlFor="hours" >Hours</label>
+                        <input id="hours" placeholder="Hours" type="number" value={inverted ? amount : amount/60} onChange={onChange} disabled={!inverted}/>
+                    </div>
+
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onInvert}>{inverted? "Minutes ← Hours" : "Minutes → Hours"}</button>
+                </div>
+            );
+        }
+
+        function KmToMiles() {
+            // 코드 챌린지부분
+
+            const [length, setLength] = React.useState(0)
+            const [inverted, setInverted] = React.useState(false)
+            
+            const onChange = (event) => {   // Form을 다룰때는 JS를 활용한다. event를 받아서, 그 안에 있는 value를 가져온다.
+                setLength(event.target.value);
+            }
+
+            const reset = () => setLength(0);
+
+            const onInvert= () => {
+                reset();
+                setInverted((current) => !current)
+            };
+
+            return (  // 사용자가 보는 컴포넌트
+                <div>
+                    <h4>Km & Miles</h4>
+                    <div>
+                        <label htmlFor="km" >Km</label>
+                        <input id="km" placeholder="Km" type="number" value={inverted? length/0.62137 : length} onChange={onChange} disabled={inverted}/>
+                    </div>
+                    <div>
+                        <label htmlFor="miles" >Miles</label>
+                        <input id="miles" placeholder="Miles" type="number" value={inverted ? length : length*0.62137} onChange={onChange} disabled={!inverted}/>
+                    </div>
+
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onInvert}>{inverted? "Km ← Miles" : "Km → Miles"}</button>
+                </div>
+            );
+        }
+
+        function App() {
+            const [menu, setMenu] = React.useState("-");
+            const onSelect = (event) => {
+                setMenu(event.target.value);
+            }
+
+            return (
+                <div>
+                    <h1>Super Converter</h1>
+                    <select value={menu} onChange={onSelect}>
+                        <option value="-">Select Your Menu</option>
+                        <option value="MtH">Minutes & Hours</option>
+                        <option value="KtM">Km & Miles</option>
+                    </select>
+                    <hr/>
+                    {menu === "-" ? "Please select your menu." : null}   
+                    {menu === "MtH" ? <MinutesToHours /> : null}
+                    {menu === "KtM" ? <KmToMiles /> : null}
+                </div>
+            );  // 태그 내에서 JS를 작성할 때는  {} 를 사용한다. (없으면 일반 Text로 인식)
+        }
+
+        const root = document.getElementById("root")
+        ReactDOM.render(<App />, root);
+    </script>
+</html>
