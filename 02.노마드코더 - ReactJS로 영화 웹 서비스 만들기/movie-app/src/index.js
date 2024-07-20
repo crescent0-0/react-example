@@ -4,6 +4,7 @@ import Practice from './pratice/Practice';
 
 import Todo from './sample-app/Todo';
 import CoinTracker from './sample-app/CoinTracker';
+import MovieApp from './sample-app/MovieApp';
 // import "./styles.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,7 +12,8 @@ root.render(
   <React.StrictMode>
     {/* <Practice /> */}
     {/* <Todo /> */}
-    <CoinTracker />
+    {/* <CoinTracker /> */}
+    {<MovieApp />}
   </React.StrictMode>
 );
 

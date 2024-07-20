@@ -17,7 +17,7 @@ function CoinTracker() {
                 setLoading(false);
             });
     }, [])
-    console.log(coins[0])
+    
     return (
         <div>
             <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
